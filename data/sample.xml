@@ -1,0 +1,21 @@
+<?xml version='1.0' standalone='yes' ?>
+<file ver="2">
+  <thread n="397">
+    <message type="SMS">
+      <address>5551234567</address>
+      <body>Hi+person+number+1</body>
+      <date>1436652076777</date>
+      <read>1</read>
+      <type>2</type>
+      <locked>0</locked>
+    </message>
+    <message type="SMS">
+      <address>5551234567</address>
+      <body>Hi+person+number+2</body>
+      <date>1436583438250</date>
+      <read>1</read>
+      <type>1</type>
+      <locked>0</locked>
+    </message>
+  </thread>
+</file>
