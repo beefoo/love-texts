@@ -4,7 +4,7 @@
 #   Reads an xml dump of texts and allows user to manually categorize each text
 #
 # Example usage:
-#   python analyze_texts.py data/texts_2015-03-31_2015-07-11.xml data/categories.json output/texts_2015-03-31_2015-07-11.json
+#   python analyze_texts.py data/texts_2015-03-31_2015-07-11.xml data/categories.json output/texts_2015-03-31_2015-07-11.json 0
 
 from datetime import datetime
 import json
@@ -15,15 +15,15 @@ import urllib
 import xml.etree.ElementTree
 
 # input
-if len(sys.argv) < 3:
-    print "Usage: %s <inputfile texts> <inputfile categories> <outputfile>" % sys.argv[0]
+if len(sys.argv) < 4:
+    print "Usage: %s <inputfile texts> <inputfile categories> <outputfile> <reset file>" % sys.argv[0]
     sys.exit(1)
 TEXTS_FILE = sys.argv[1]
 CATEGORIES_FILE = sys.argv[2]
 OUTPUT_FILE = sys.argv[3]
+RESET_FILE = int(sys.argv[4])
 
 # config
-RESET_FILE = False
 DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 # init
@@ -86,7 +86,7 @@ for mi, message in enumerate(messages):
     # Show the user the message and category options
     print 'Person ' + str(message['person']) + ': ' + message['body']
     for ci, c in enumerate(categories):
-        print(' ' + str(ci) + '. ' + c)
+        print(' ' + str(ci) + '. ' + c['name'])
 
     # retrieve selection and save
     message_categories = []
@@ -97,7 +97,7 @@ for mi, message in enumerate(messages):
         category_selections = selection.split(',')
         for ci in category_selections:
             if is_int(ci) and int(ci) < len(categories):
-                message_categories.append(categories[int(ci)])
+                message_categories.append(categories[int(ci)]["name"])
 
     # save messages
     messages[mi]['categories'] = message_categories
